@@ -1,4 +1,3 @@
-import Navbar from "../../navbar";
 import ColorPick from "../colorPick";
 import BoatAndPlane from "../../BoatAndPlane";
 import PopUp from "../../popUp";
