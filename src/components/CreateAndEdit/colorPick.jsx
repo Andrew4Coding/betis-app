@@ -1,19 +1,58 @@
-import {BoatColor} from '../../const'
 import _ from 'underscore'
+import { motion } from 'framer-motion'
+
+import {BoatColor} from '../../UsedConst'
 
 function ColorPickButton({assignedColor, setIsOpenColorPick, setSelectedColor}){
+    const item = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1
+        }
+    };
+
     function handleSelected(){
         setIsOpenColorPick(false)
         setSelectedColor(assignedColor)
     }
     return <>
-        <button style={{backgroundColor:assignedColor}} className='w-[20px] h-[20px] shadow-xl'
-        onClick={handleSelected}></button>
+        <motion.button 
+            variants={item}
+            style={{backgroundColor:assignedColor}} className='w-[20px] h-[20px] shadow-xl'
+            onClick={handleSelected}>
+        </motion.button>
     </>
 }
+
 export default function ColorPick({setIsOpenColorPick, setSelectedColor}){    
+    const container = {
+        hidden: { opacity: 1, scale: 0, y:-90, x:30},
+        visible: {
+          opacity: 1,
+          scale: 1,
+          transition: {
+            delayChildren: 0.05,
+            staggerChildren: 0.05
+          }
+        },
+        exit: {
+            opacity: 0,
+            scale: 1
+        }
+      };
+
     return <>
-        <div className="bg-white  absolute grid grid-cols-3 gap-3 p-3 -translate-y-24 translate-x-4
+        <motion.div 
+        variants={container}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        transition={{
+            type: "spring",
+            duration: 0.4
+        }}
+        className="bg-white  absolute grid grid-cols-3 gap-3 p-3 -translate-y-24 translate-x-4
         shadow-xl">
             {
                 _.values(BoatColor).map((color) => {
@@ -21,6 +60,6 @@ export default function ColorPick({setIsOpenColorPick, setSelectedColor}){
                     key={color}/>
                 })
             }
-        </div>
+        </motion.div>
     </>
 }

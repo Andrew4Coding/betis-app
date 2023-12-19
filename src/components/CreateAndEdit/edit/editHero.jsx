@@ -1,60 +1,129 @@
-import Navbar from "../../navbar";
-import SeaPlane from "../../../seaPlane";
-import MainBoat from '../../../assets/mainboat'
-
-import { BoatColor } from "../../../const";
-
-import { useState } from "react";
 import ColorPick from "../colorPick";
+
+import WhiteArea from "../WhiteArea/WhiteArea"
+import BoatProperties from "../WhiteArea/BoatProperties"
+import CapacityButton from "../WhiteArea/CapacityButton"
+import ColorButton from "../WhiteArea/ColorButton"
+import SailingButton from "../WhiteArea/SailingButton"
+
 import BoatAndPlane from "../../BoatAndPlane";
+import PopUp from "../../popUp";
 
-function WhiteArea({children}) {
-    return <div className="bg-white grow p-8 font-Poppins md:max-w-[50vw]
-    rounded-[20px] flex flex-col">
-        <p className="text-[15px] text-[#6D6D6D]">Name</p>
-        <h2 className="font-bold font-Poppins text-[25px]">Andrew's Boat</h2>
+import { BoatColor, GetColorName } from "../../../UsedConst";
 
-        <p className="text-[15px] text-[#6D6D6D] mt-3">Description</p>
-        <p className="text-[12px] font-thintext-[#898989] overflow-auto break-words mb-3">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus, quasi? Quaerat laborum sit hic animi! Impedit ratione ea dicta recusandae magnam quo blanditiis dolorum! Eius, impedit commodi? Cum, in magni.
-        </p>
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
-        {children}
-    </div>
-}
+import LoadingHero from "../../Loading";
 
-function BoatProperties({openColorPick, setOpenColorPick}){
-    return <div className="mt-3">
-        <ul className="flex gap-3 flex-wrap justify-end text-[12px]">
-            <li className="flex items-center gap-3">
-                <p className="">Capacity</p>
-                <div className="bg-mainBlack px-4 py-2 text-white rounded-lg">10</div>
-            </li>
-            <li className="flex items-center gap-3 cursor-pointer"
-            onClick={() => setOpenColorPick(!openColorPick)}>
-                {openColorPick && <ColorPick />}
-                <p className="">Color</p>
-                <div className="bg-red-500 px-4 py-2 text-white rounded-lg">RED</div>
-            </li>
-            <li className="flex items-center gap-3">
-                <p className="">Sailing</p>
-                <div className="bg-mainBlack px-4 py-2 text-white rounded-lg">Yes</div>
-            </li>
-        </ul>
-    </div>
-}
-export default function EditeHero(){
+import { getDetailFetch, deleteFetch, patchFetch} from "../../../FetchLogic";
+
+export default function EditHero({isOpenPopup, setIsOpenPopup}){
+    const params = useParams().boatID
+
     const [openColorPick, setOpenColorPick] = useState(false)
+    
+    const [isNameValid, setIsNameValid] = useState(false)
+    const [isDescriptionValid, setIsDescriptionValid] = useState(false)
+
+    // Post State
+    const [boatName, setBoatName] = useState('')
+    const [boatDescription, setBoatDescription] = useState('')
+    const [boatCapacity, setBoatCapacity] = useState(10)
+    const [selectedColor, setSelectedColor] = useState('#FF8080')
+    const [isSailing, setIsSailing] = useState(false)
+
+    const [popupMessage, setPopUpMessage] = useState('')
+
+    const [isLoading, setIsLoading] = useState(true)
+
+    const [boatData, setBoatData] = useState('')
+
+    useEffect(() => {
+        getDetailFetch(setBoatData, setIsLoading, params)
+    }, [])
+
+    useEffect(() => {
+        if (boatData){
+            setBoatName(boatData.name)
+            setBoatDescription(boatData.description)
+            setBoatCapacity(boatData.capacity)
+    
+            setIsSailing(boatData.is_sailing)
+            setSelectedColor(BoatColor[boatData.color][0])
+    
+            setIsNameValid(true)
+            setIsDescriptionValid(true)
+        }
+        
+    }, [boatData])
 
     return <>
-        <Navbar />
-        <div className="flex m-8 flex-col">
-            <div className="flex flex-wrap gap-10">
-                <BoatAndPlane prefferedColor={'BLACK'}/>
-                <WhiteArea>
-                    <BoatProperties openColorPick={openColorPick} setOpenColorPick={setOpenColorPick}/>
-                </WhiteArea>
-            </div>
-        </div>
+        <AnimatePresence>
+            {isOpenPopup && 
+            <PopUp isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} popupMessage={popupMessage}/>}
+        </AnimatePresence>
+        {
+            isLoading && (boatData != null) ? <LoadingHero />
+            :
+            <motion.div 
+            initial={{opacity: 0, y: 200}}
+            animate={{opacity: 1, y: 0}}
+            transition={{
+                type: "spring",
+                duration: 0.5
+            }}
+            className="flex m-8 flex-col">
+                <div className="flex flex-wrap gap-10 items-center justify-center">
+                    <BoatAndPlane prefferedColor={GetColorName(selectedColor)}/>
+                    <WhiteArea  boatName={boatName} setBoatName={setBoatName} 
+                                boatDescription={boatDescription} setBoatDescription={setBoatDescription}
+                                isNameValid={isNameValid} setIsNameValid={setIsNameValid}
+                                isDescriptionValid={isDescriptionValid} setIsDescriptionValid={setIsDescriptionValid}
+                                EditValue={''}>
+
+                        <div className="absolute right-8 duration-100 hover:scale-125 hover:rotate-6"
+                        onClick={() => {
+                            setPopUpMessage('Data Deleted Successfully!')
+                            deleteFetch(params, setIsOpenPopup)
+                        }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-trash"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        </div>
+                        
+                        <BoatProperties>
+                            <CapacityButton boatCapacity={boatCapacity} setBoatCapacity={setBoatCapacity}/>
+                            <ColorButton openColorPick={openColorPick} setOpenColorPick={setOpenColorPick} selectedColor={selectedColor}>
+                                {openColorPick && 
+                                <ColorPick setIsOpenColorPick={setOpenColorPick} setSelectedColor={setSelectedColor}/>}
+                            </ColorButton>
+                            <SailingButton isSailing={isSailing} setIsSailing={setIsSailing}/>
+                        </BoatProperties>
+                        <div className="flex justify-center mt-3">
+                            <button className="w-fit bg-mainSeaShade px-8 py-3 text-white rounded-full text-[12px]
+                            duration-100 hover:scale-110 shadow-lg"
+                            onClick={() => {
+                                if (isNameValid && isDescriptionValid){
+                                    // postFetch(postDict, setIsOpenPopup)
+                                    patchFetch(params, {
+                                        name: boatName,
+                                        description: boatDescription,
+                                        capacity: parseInt(boatCapacity),
+                                        color: GetColorName(selectedColor),
+                                        is_sailing: isSailing
+
+                                    }, setIsOpenPopup)
+                                    setPopUpMessage('Data Edited Successfully!')
+                                    setIsOpenPopup(true);
+                                }
+                            }
+                            }>
+                                Save
+                            </button>
+                        </div>
+                    </WhiteArea>
+                </div>
+            </motion.div>
+        }
     </>
 }

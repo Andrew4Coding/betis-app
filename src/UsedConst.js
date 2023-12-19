@@ -1,5 +1,5 @@
-import { color } from 'framer-motion'
 import _ from 'underscore'
+
 export const BoatColor = {
     'RED'   : ['#FF8080', '#C33F3F'],
     'ORANGE': ['#FFAD84', '#E9814D'],
@@ -24,4 +24,17 @@ export const GetColorName = (colorCode) => {
 export const FetchAuth = {
     url: 'https://oprec-betis-be.up.railway.app/perahu',
     bearerToken: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiMzdmZTM3OC01N2JjLTQ1N2MtYTM2OS0zN2E1NmViYTFmNjkiLCJpZCI6ImIzN2ZlMzc4LTU3YmMtNDU3Yy1hMzY5LTM3YTU2ZWJhMWY2OSIsInVzZXJuYW1lIjoiYW5kcmV3LmRldml0byIsImlhdCI6MTcwMjAxMzY0OSwiZXhwIjoxNzA0NjA1NjQ5fQ.x496-CoXOkFxM6tPFL4jrgXiizNme7U177BDT3Ope30'
+}
+
+export function RandomLoadingWords(){
+    const LoadingWords = [
+        "Scratching your data", "Preparing something good for you", "Cleaning up some stuff for you",
+        "Cooking Somethin! 🔥"
+    ]
+
+    const index = Math.floor(Math.random() * (LoadingWords.length))
+
+    if (LoadingWords[index]){
+        return LoadingWords[index]
+    }
 }
