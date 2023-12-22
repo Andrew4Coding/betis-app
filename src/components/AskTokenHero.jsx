@@ -57,9 +57,9 @@ export default function AskTokenHero({bearerToken, setBearerToken, boatData, set
                     }
                 }}>Enter</button>
 
-                <button className="bg-white" onClick={() => {
+                {/* <button className="bg-white" onClick={() => {
                     localStorage.clear()
-                }}>Clear Token</button>
+                }}>Clear Token</button> */}
 
             </div>
         </div>
