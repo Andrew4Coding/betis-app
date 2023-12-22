@@ -45,8 +45,12 @@ function App() {
       }
       <BrowserRouter
       // basename={`/${process.env.PUBLIC_URL}`}
+      basename='/betis-app/'
       >
           <Routes>
+            <Route path='/' element={<>
+              <p>APP NOT FOUND</p>
+            </>}/>
             <Route path='/betis-app/' element={<Landing boatData={boatData} setBoatData={setBoatData} search={tempSearch} setSearch={setTempSearch} isLoading={isLoading}/>}/>
             
             <Route path='/betis-app/newToken' element={
