@@ -6,7 +6,7 @@ export default function PopUp({setIsOpenPopup, popupMessage}){
     function handleClick(event){
         if (event.target === event.currentTarget){
             setIsOpenPopup(false)
-            navigate('/betis-app/')
+            navigate('/')
         }
     }
 

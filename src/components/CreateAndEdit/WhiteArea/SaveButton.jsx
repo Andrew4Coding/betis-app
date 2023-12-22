@@ -6,8 +6,9 @@ export default function SaveButton({setIsOpenPopup, postDict, isNameValid, isDes
             duration-100 hover:scale-110 shadow-lg"
             onClick={() => {
                 if (isNameValid && isDescriptionValid){
+                    console.log(localStorage.getItem('saved_token'))
                     postFetch(postDict, setIsOpenPopup, 
-                        'Bearer ' + localStorage.getItem('saved_token'))
+                        localStorage.getItem('saved_token'))
                     setIsOpenPopup(true);
                 }
             }

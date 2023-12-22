@@ -18,7 +18,7 @@ import { useParams } from "react-router";
 import LoadingHero from "../../Loading";
 
 import { getDetailFetch, deleteFetch, patchFetch} from "../../../FetchLogic";
-import Navbar from "../../Navbar";
+import Navbar from "../../navbar";
 
 export default function EditHero({isOpenPopup, setIsOpenPopup}){
     const params = useParams().boatID
@@ -113,7 +113,7 @@ export default function EditHero({isOpenPopup, setIsOpenPopup}){
                                         color: GetColorName(selectedColor),
                                         is_sailing: isSailing
 
-                                    }, setIsOpenPopup, 'Bearer ' + localStorage.getItem('saved_token'))
+                                    }, setIsOpenPopup, localStorage.getItem('saved_token'))
                                     setPopUpMessage('Data Edited Successfully!')
                                     setIsOpenPopup(true);
                                 }

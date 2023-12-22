@@ -5,7 +5,7 @@ import { useNavigate } from "react-router"
 import MainBoat from "../assets/mainboat"
 import LoadingHero from "./Loading"
 import { BoatColor } from "../UsedConst"
-import Navbar, { CreateButton, LoginNewToken } from "./Navbar"
+import Navbar, { CreateButton, LoginNewToken } from "./navbar"
 import { Redirect } from "../App"
 
 function Card({boat}){
@@ -41,7 +41,7 @@ function Card({boat}){
                     sm:px-8 sm:py-3 sm:text-[12px]
                     duration-100 hover:scale-110"
                     onClick={() => {
-                        navigate(`/betis-app/${boat.id}`)
+                        navigate(`/${boat.id}`)
                     }}>Detail</button>
                 </div>
             </div>
@@ -53,9 +53,9 @@ export default function Landing({boatData, search, setSearch, isLoading}){
     const [searchText, setSearchText] = useState('')
     const navigate = useNavigate()
 
-    // useEffect(() => {
-    //     Redirect(navigate)
-    // }, [])
+    useEffect(() => {
+        Redirect(navigate)
+    }, [])
 
     useEffect(() => {
         if (search){
@@ -91,12 +91,6 @@ export default function Landing({boatData, search, setSearch, isLoading}){
                         onChange={(event) => setSearchText(event.target.value)}/>
                     </div>
                 </div>
-                    {
-                        search == 0 && boatData != [] && 
-                        <div className="mx-8 my-20 text-white text-center">
-                            Keyword not found :v
-                        </div> 
-                    }
                 <div className="m-8 grid grid-cols-mobileGrid gap-5
                 sm:gap-10
                 sm:grid-cols-myGrid">

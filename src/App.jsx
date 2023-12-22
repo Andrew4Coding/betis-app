@@ -15,12 +15,12 @@ import AskTokenHero from './components/AskTokenHero.jsx';
 
 export function Redirect(navigate){
     if (localStorage.getItem('saved_token') == null){
-        navigate('/betis-app/newToken')
+        navigate('/newToken')
     }
 }
 
 function App() {
-  const [boatData, setBoatData] = useState([])
+  const [boatData, setBoatData] = useState([''])
   const [tempSearch, setTempSearch] = useState([])
 
   const [isOpenPopup, setIsOpenPopup] = useState(false)
@@ -47,18 +47,15 @@ function App() {
       basename='/betis-app/'
       >
           <Routes>
-            <Route path='/' element={<>
-              <p>APP NOT FOUND</p>
-            </>}/>
-            <Route path='/betis-app/' element={<Landing boatData={boatData} setBoatData={setBoatData} search={tempSearch} setSearch={setTempSearch} isLoading={isLoading}/>}/>
+            <Route path='/' element={<Landing boatData={boatData} setBoatData={setBoatData} search={tempSearch} setSearch={setTempSearch} isLoading={isLoading}/>}/>
             
-            <Route path='/betis-app/newToken' element={
+            <Route path='/newToken' element={
               <AskTokenHero setBoatData={setBoatData} setTempSearch={setTempSearch} setIsLoading={setIsLoading} setErrorMessage={setErrorMessage} bearerToken={bearerToken} setBearerToken={setBearerToken}/>
             }/>
-            <Route path='/betis-app/error/:errorCode' element={<ErrorPage errorMessage={errorMessage}/>}/>
-            <Route path='/betis-app/create' element={<CreateHero isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} bearerToken={bearerToken}/>}/>
-            <Route path='/betis-app/:boatID' element={<BoatDetail boatData={boatData}/>}/>
-            <Route path='/betis-app/:boatID/edit' element={<EditHero boatData={boatData} isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} bearerToken={bearerToken}/>}/>
+            <Route path='/error/:errorCode' element={<ErrorPage errorMessage={errorMessage}/>}/>
+            <Route path='/create' element={<CreateHero isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} bearerToken={bearerToken}/>}/>
+            <Route path='/:boatID' element={<BoatDetail boatData={boatData}/>}/>
+            <Route path='/:boatID/edit' element={<EditHero boatData={boatData} isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} bearerToken={bearerToken}/>}/>
           </Routes>
       </BrowserRouter>
     </>

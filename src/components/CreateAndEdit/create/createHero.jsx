@@ -14,7 +14,7 @@ import { GetColorName } from "../../../UsedConst";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import Navbar from "../../Navbar";
+import Navbar from "../../navbar";
 import { Redirect } from "../../../App";
 import { useNavigate } from "react-router";
 
