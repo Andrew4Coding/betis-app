@@ -1,7 +1,6 @@
 import { motion } from "framer-motion"
 
 import BrokenBoat from '../assets/brokenboat'
-import { useEffect } from "react"
 
 export default function ErrorPage({errorMessage}){
     return <>
@@ -13,9 +12,15 @@ export default function ErrorPage({errorMessage}){
             type: "spring",
             duration: 0.4
         }}
-        className="fixed h-full w-full bg-black bg-opacity-20 text-center flex flex-col items-center justify-center">
-            <div className="bg-white flex flex-col items-center p-8">
-                <BrokenBoat />
+        className="fixed h-full w-full z-10 bg-black bg-opacity-20 text-center flex flex-col items-center justify-center" onClick={(event) => {
+            if (event.target == event.currentTarget){
+                window.location.reload(false)
+            }
+        }}>
+            <div className="bg-white flex flex-col items-center p-8 max-w-[80%] max-h-[50%]">
+                <div className="w-[50%]">
+                    <BrokenBoat />
+                </div>
                 <div>
                     <h2 className='text-xl'>Something doomed our dock!</h2>
                     <p className='font-bold text-xl m-3 text-red-500'>
