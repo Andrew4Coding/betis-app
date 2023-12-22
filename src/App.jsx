@@ -1,6 +1,6 @@
 import './index.css'
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, BrowserRouter, useNavigate} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, BrowserRouter, useNavigate, HashRouter} from "react-router-dom";
 
 import Landing from './components/Landing.jsx';
 import CreateHero from './components/CreateAndEdit/create/createHero';
@@ -44,7 +44,7 @@ function App() {
         errorMessage && <ErrorPage errorMessage={errorMessage}/>
       }
       <BrowserRouter
-      basename='/betis-app/'
+      basename='/betis-app'
       >
           <Routes>
             <Route path='/' element={<Landing boatData={boatData} setBoatData={setBoatData} search={tempSearch} setSearch={setTempSearch} isLoading={isLoading}/>}/>
