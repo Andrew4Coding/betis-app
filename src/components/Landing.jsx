@@ -53,9 +53,9 @@ export default function Landing({boatData, search, setSearch, isLoading}){
     const [searchText, setSearchText] = useState('')
     const navigate = useNavigate()
 
-    useEffect(() => {
-        Redirect(navigate)
-    }, [])
+    // useEffect(() => {
+    //     Redirect(navigate)
+    // }, [])
 
     useEffect(() => {
         if (search){
