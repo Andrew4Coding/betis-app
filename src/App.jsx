@@ -44,7 +44,6 @@ function App() {
         errorMessage && <ErrorPage errorMessage={errorMessage}/>
       }
       <BrowserRouter
-      // basename={`/${process.env.PUBLIC_URL}`}
       basename='/betis-app/'
       >
           <Routes>
