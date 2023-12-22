@@ -2,9 +2,11 @@ import { useEffect, useState } from "react"
 import { motion } from 'framer-motion'
 import { useNavigate } from "react-router"
 
-import MainBoat from "../../assets/mainboat"
-import LoadingHero from "../Loading"
-import { BoatColor } from "../../UsedConst"
+import MainBoat from "../assets/mainboat"
+import LoadingHero from "./Loading"
+import { BoatColor } from "../UsedConst"
+import Navbar, { CreateButton, LoginNewToken } from "./Navbar"
+import { Redirect } from "../App"
 
 function Card({boat}){
     const navigate = useNavigate()
@@ -39,7 +41,7 @@ function Card({boat}){
                     sm:px-8 sm:py-3 sm:text-[12px]
                     duration-100 hover:scale-110"
                     onClick={() => {
-                        navigate(`/${boat.id}`)
+                        navigate(`/betis-app/${boat.id}`)
                     }}>Detail</button>
                 </div>
             </div>
@@ -47,8 +49,13 @@ function Card({boat}){
     </>
 }
 
-export default function Landing({boatData, search, setSearch}){
+export default function Landing({boatData, search, setSearch, isLoading}){
     const [searchText, setSearchText] = useState('')
+    const navigate = useNavigate()
+
+    // useEffect(() => {
+    //     Redirect(navigate)
+    // }, [])
 
     useEffect(() => {
         if (search){
@@ -64,23 +71,29 @@ export default function Landing({boatData, search, setSearch}){
         }
     }, [searchText])
 
-    
     return <>
+        <Navbar>
+            <CreateButton />
+            <LoginNewToken />
+        </Navbar>
         {
-            // Make sure that our boat data is not empty
-            search ? <>
+            isLoading ? 
+            <LoadingHero />
+            :
+            <>
                 <div className="m-8 flex justify-center" >
                     <div className="flex flex-col justify-center">
-                        <h2 className="text-white text-xl">Search your boat collection here!</h2>
-                        <input type="text" className="mt-2 outline-none rounded-lg px-8 py-3 placeholder:font-thin" 
+                        <h2 className="text-white text-sm sm:text-xl">Search your boat collection here!</h2>
+                        <input type="text" className="mt-2 outline-none rounded-lg px-8 py-3 placeholder:font-thin
+                        text-xs sm:text-sm shrink w-[100%]" 
                         placeholder="Search here" value={searchText}
                         
                         onChange={(event) => setSearchText(event.target.value)}/>
                     </div>
                 </div>
                     {
-                        search == 0 && 
-                        <div className="m-8 text-white text-center">
+                        search == 0 && boatData != [] && 
+                        <div className="mx-8 my-20 text-white text-center">
                             Keyword not found :v
                         </div> 
                     }
@@ -94,8 +107,6 @@ export default function Landing({boatData, search, setSearch}){
                     }
                 </div>
             </>
-            :
-            <LoadingHero />
         }
     </>
 }

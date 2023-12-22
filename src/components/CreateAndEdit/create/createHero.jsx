@@ -13,8 +13,10 @@ import PopUp from "../../popUp";
 import { GetColorName } from "../../../UsedConst";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import Navbar from "../../Navbar";
+import { Redirect } from "../../../App";
+import { useNavigate } from "react-router";
 
 export default function CreateHero({isOpenPopup, setIsOpenPopup}){
     const [openColorPick, setOpenColorPick] = useState(false)
@@ -29,7 +31,14 @@ export default function CreateHero({isOpenPopup, setIsOpenPopup}){
     const [selectedColor, setSelectedColor] = useState('#FF8080')
     const [isSailing, setIsSailing] = useState(false)
 
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        Redirect(navigate)
+    })
+    
     return <>
+        <Navbar />
         <AnimatePresence>
             {isOpenPopup && 
             <PopUp isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} popupMessage={"Boat Added Successfully!"}/>}

@@ -1,17 +1,23 @@
 import './index.css'
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, BrowserRouter, useNavigate} from "react-router-dom";
 
-import Navbar from './components/Navbar'
-import Landing from './components/Landing/Landing';
+import Landing from './components/Landing.jsx';
 import CreateHero from './components/CreateAndEdit/create/createHero';
 import LoadingHero from './components/Loading';
 import EditHero from './components/CreateAndEdit/edit/editHero';
 import BoatDetail from './components/CreateAndEdit/detail/detailHero';
 
-import { getFetch } from './FetchLogic';
 import ErrorPage from './components/ErrorPages';
 import { AnimatePresence } from 'framer-motion';
+import { getFetch } from './FetchLogic.js';
+import AskTokenHero from './components/AskTokenHero.jsx';
+
+export function Redirect(navigate){
+    if (localStorage.getItem('saved_token') == null){
+        navigate('/betis-app/newToken')
+    }
+}
 
 function App() {
   const [boatData, setBoatData] = useState([])
@@ -22,36 +28,36 @@ function App() {
 
   const [errorMessage, setErrorMessage] = useState('')
 
-  useEffect(() => {
-    getFetch(setBoatData, setTempSearch, setIsLoading, setErrorMessage)
-  }, [isOpenPopup])
+  const [bearerToken, setBearerToken] = useState('')
   
+
+  useEffect(() => {
+    if (localStorage.getItem('saved_token')){
+      getFetch(setBoatData, setTempSearch, setIsLoading, setErrorMessage, localStorage.getItem('saved_token'))
+    }
+    // React every popup opened
+  }, [isOpenPopup])
+
   return (
     <>
-      <AnimatePresence>
-        {
-          errorMessage != '' ? 
-          <ErrorPage errorMessage={errorMessage}/>
-          :
-          <>
-              {
-                isLoading ? 
-                <LoadingHero /> 
-                :
-                <Router>
-                  <Navbar />
-                  <Routes>
-                    <Route path='/' element={<Landing boatData={boatData} setBoatData={setBoatData} search={tempSearch} setSearch={setTempSearch}/>}/>
-                    <Route path='/error/:errorCode' element={<ErrorPage errorMessage={errorMessage}/>}/>
-                    <Route path='/create' element={<CreateHero isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup}/>}/>
-                    <Route path='/:boatID' element={<BoatDetail boatData={boatData}/>}/>
-                    <Route path='/:boatID/edit' element={<EditHero boatData={boatData} isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup}/>}/>
-                  </Routes>
-                </Router>
-              }
-          </>
-        }
-      </AnimatePresence>
+      {
+        errorMessage && <ErrorPage errorMessage={errorMessage}/>
+      }
+      <BrowserRouter
+      // basename={`/${process.env.PUBLIC_URL}`}
+      >
+          <Routes>
+            <Route path='/betis-app/' element={<Landing boatData={boatData} setBoatData={setBoatData} search={tempSearch} setSearch={setTempSearch} isLoading={isLoading}/>}/>
+            
+            <Route path='/betis-app/newToken' element={
+              <AskTokenHero setBoatData={setBoatData} setTempSearch={setTempSearch} setIsLoading={setIsLoading} setErrorMessage={setErrorMessage} bearerToken={bearerToken} setBearerToken={setBearerToken}/>
+            }/>
+            <Route path='/betis-app/error/:errorCode' element={<ErrorPage errorMessage={errorMessage}/>}/>
+            <Route path='/betis-app/create' element={<CreateHero isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} bearerToken={bearerToken}/>}/>
+            <Route path='/betis-app/:boatID' element={<BoatDetail boatData={boatData}/>}/>
+            <Route path='/betis-app/:boatID/edit' element={<EditHero boatData={boatData} isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} bearerToken={bearerToken}/>}/>
+          </Routes>
+      </BrowserRouter>
     </>
   )
 }

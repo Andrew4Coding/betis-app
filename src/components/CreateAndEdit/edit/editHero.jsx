@@ -18,6 +18,7 @@ import { useParams } from "react-router";
 import LoadingHero from "../../Loading";
 
 import { getDetailFetch, deleteFetch, patchFetch} from "../../../FetchLogic";
+import Navbar from "../../Navbar";
 
 export default function EditHero({isOpenPopup, setIsOpenPopup}){
     const params = useParams().boatID
@@ -41,7 +42,7 @@ export default function EditHero({isOpenPopup, setIsOpenPopup}){
     const [boatData, setBoatData] = useState('')
 
     useEffect(() => {
-        getDetailFetch(setBoatData, setIsLoading, params)
+        getDetailFetch(setBoatData, setIsLoading, params, localStorage.getItem('saved_token'))
     }, [])
 
     useEffect(() => {
@@ -60,6 +61,7 @@ export default function EditHero({isOpenPopup, setIsOpenPopup}){
     }, [boatData])
 
     return <>
+        <Navbar />
         <AnimatePresence>
             {isOpenPopup && 
             <PopUp isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} popupMessage={popupMessage}/>}
@@ -86,7 +88,7 @@ export default function EditHero({isOpenPopup, setIsOpenPopup}){
                         <div className="absolute right-8 duration-100 hover:scale-125 hover:rotate-6"
                         onClick={() => {
                             setPopUpMessage('Data Deleted Successfully!')
-                            deleteFetch(params, setIsOpenPopup)
+                            deleteFetch(params, setIsOpenPopup, localStorage.getItem('saved_token'))
                         }}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-trash"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                         </div>
@@ -104,7 +106,6 @@ export default function EditHero({isOpenPopup, setIsOpenPopup}){
                             duration-100 hover:scale-110 shadow-lg"
                             onClick={() => {
                                 if (isNameValid && isDescriptionValid){
-                                    // postFetch(postDict, setIsOpenPopup)
                                     patchFetch(params, {
                                         name: boatName,
                                         description: boatDescription,
@@ -112,7 +113,7 @@ export default function EditHero({isOpenPopup, setIsOpenPopup}){
                                         color: GetColorName(selectedColor),
                                         is_sailing: isSailing
 
-                                    }, setIsOpenPopup)
+                                    }, setIsOpenPopup, 'Bearer ' + localStorage.getItem('saved_token'))
                                     setPopUpMessage('Data Edited Successfully!')
                                     setIsOpenPopup(true);
                                 }

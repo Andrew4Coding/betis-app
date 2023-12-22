@@ -12,7 +12,7 @@ export default function WhiteArea({
     return <div className="bg-white grow p-8 shrink 
     rounded-[20px] flex flex-col gap-3 max-w-[30rem] relative">
         <p className="text-[15px] text-[#6D6D6D]">Name</p>
-        <input type="text" className="px-4 py-2 shrink w-[100%] outline-none rounded-lg shadow-sm border-[1px] font-bold placeholder:font-normal placeholder:text-[15px]"
+        <input type="text" className="px-4 py-2 w-[100%] outline-none rounded-lg shadow-sm border-[1px] font-bold placeholder:font-normal placeholder:text-[15px]"
         placeholder="Enter your boat name" 
         value={EditValue == '' ? boatName : EditValue}
         onChange={(event) => {
@@ -31,7 +31,8 @@ export default function WhiteArea({
         
 
         <p className="text-[15px] text-[#6D6D6D] mt-3">Description</p>
-        <textarea cols="30" rows="10" className="p-4 max-h-[10rem] text-[12px] font-thin outline-none rounded-lg shadow-sm border-[1px]" 
+        <textarea cols="30" rows="10" className="p-4 max-h-[10rem] text-[12px] font-thin outline-none rounded-lg shadow-sm border-[1px]
+        w-[100%]" 
         placeholder="Enter your boat description"
         value={boatDescription}
         onChange={(event) => {
