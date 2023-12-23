@@ -1,24 +1,21 @@
-import ColorPick from "../colorPick";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
+import Navbar from "../../Navbar";
 import WhiteArea from "../WhiteArea/WhiteArea"
 import BoatProperties from "../WhiteArea/BoatProperties"
 import CapacityButton from "../WhiteArea/CapacityButton"
 import ColorButton from "../WhiteArea/ColorButton"
 import SailingButton from "../WhiteArea/SailingButton"
-
+import ColorPick from "../ColorOption";
 import BoatAndPlane from "../../BoatAndPlane";
-import PopUp from "../../popUp";
+import LoadingHero from "../../LoadingHero";
+import PopUp from "../../PopUp";
 
 import { BoatColor, GetColorName } from "../../../UsedConst";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
-
-import LoadingHero from "../../Loading";
-
 import { getDetailFetch, deleteFetch, patchFetch} from "../../../FetchLogic";
-import Navbar from "../../navbar";
 
 export default function EditHero({isOpenPopup, setIsOpenPopup}){
     const params = useParams().boatID
@@ -47,6 +44,7 @@ export default function EditHero({isOpenPopup, setIsOpenPopup}){
 
     useEffect(() => {
         if (boatData){
+            // set all data to each item
             setBoatName(boatData.name)
             setBoatDescription(boatData.description)
             setBoatCapacity(boatData.capacity)

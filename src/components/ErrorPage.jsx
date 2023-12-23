@@ -32,7 +32,7 @@ export default function ErrorPage({errorMessage}){
                         }
                     </p>
                     <button className="bg-mainSeaShade text-white text-[12px] px-8 py-3 rounded-lg duration-100 hover:scale-110"
-                    onClick={() => window.location.reload(false)}>Refresh Page?</button>
+                    onClick={() => window.location.reload(false)}>Refresh Page</button>
                 </div>
             </div>
         </motion.div>

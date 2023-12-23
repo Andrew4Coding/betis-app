@@ -1,5 +1,6 @@
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router'
+
 export default function PopUp({setIsOpenPopup, popupMessage}){
     const navigate = useNavigate()
 

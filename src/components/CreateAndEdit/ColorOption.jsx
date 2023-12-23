@@ -1,7 +1,7 @@
 import _ from 'underscore'
 import { motion } from 'framer-motion'
 
-import {BoatColor} from '../../UsedConst'
+import { BoatColor } from '../../UsedConst'
 
 function ColorPickButton({assignedColor, setIsOpenColorPick, setSelectedColor}){
     const item = {
@@ -19,7 +19,7 @@ function ColorPickButton({assignedColor, setIsOpenColorPick, setSelectedColor}){
     return <>
         <motion.button 
             variants={item}
-            style={{backgroundColor:assignedColor}} className='w-[20px] h-[20px] shadow-xl'
+            style={{backgroundColor: assignedColor}} className='w-[20px] h-[20px] shadow-xl'
             onClick={handleSelected}>
         </motion.button>
     </>

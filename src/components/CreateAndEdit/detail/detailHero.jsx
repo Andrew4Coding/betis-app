@@ -6,9 +6,10 @@ import _ from "underscore"
 import { BoatColor } from "../../../UsedConst";
 
 import BoatAndPlane from "../../BoatAndPlane";
-import LoadingHero from "../../Loading";
+import LoadingHero from "../../LoadingHero";
 import BoatProperties from "../WhiteArea/BoatProperties"
-import Navbar from "../../navbar";
+import Navbar from "../../Navbar";
+import { getDetailFetch } from "../../../FetchLogic";
 
 
 function CapacityDisplay({singleBoat}){
@@ -83,55 +84,47 @@ function WhiteArea({children}){
     </>
 }
 
-export default function BoatDetail({boatData}){
+export default function BoatDetail(){
     const params = useParams().boatID
 
-    const [singleBoat, setSingleBoat] = useState(null)
-
     const [isLoading, setIsLoading] = useState(true)
+    const [boatData, setBoatData] = useState([])
 
     useEffect(() => {
-        if (singleBoat == null){
-            setSingleBoat(_.findWhere(boatData, {id: params}))
-        }
-        else {
-            setIsLoading(false)
-        }
-    })
+        getDetailFetch(setBoatData, setIsLoading, params, localStorage.getItem('saved_token'))
+    }, [])
 
     return <>
         <Navbar />
-        <AnimatePresence>
-            <div className="flex m-8 flex-col">
-                {
-                    isLoading ? <>
-                        <LoadingHero />
-                    </>
-                    :
-                    <>
-                        <motion.div
-                        initial={{opacity: 0, y: 200}}
-                        animate={{opacity: 1, y: 0}}
-                        transition={{
-                            type: "spring",
-                            duration: 0.5
-                        }}
-                        className="flex flex-wrap gap-20 items-center justify-center">
-                
-                            <BoatAndPlane prefferedColor={singleBoat.color}/>
-                            <WhiteArea singleBoat={singleBoat} params={params}>
-                                <EditButton params={params}/>
-                                <DisplayBoatIdentity singleBoat={singleBoat}/>
-                                <BoatProperties>
-                                    <CapacityDisplay singleBoat={singleBoat} />
-                                    <ColorDisplay singleBoat={singleBoat}/>
-                                    <SailingDisplay singleBoat={singleBoat}/>
-                                </BoatProperties>
-                            </WhiteArea>
-                        </motion.div>
-                    </>
-                }
-            </div>
-        </AnimatePresence>
+        <div className="flex m-8 flex-col">
+            {
+                isLoading ? <>
+                    <LoadingHero />
+                </>
+                :
+                <>
+                    <motion.div
+                    initial={{opacity: 0, y: 200}}
+                    animate={{opacity: 1, y: 0}}
+                    transition={{
+                        type: "spring",
+                        duration: 0.5
+                    }}
+                    className="flex flex-wrap gap-20 items-center justify-center">
+            
+                        <BoatAndPlane prefferedColor={boatData.color}/>
+                        <WhiteArea singleBoat={boatData} params={params}>
+                            <EditButton params={params}/>
+                            <DisplayBoatIdentity singleBoat={boatData}/>
+                            <BoatProperties>
+                                <CapacityDisplay singleBoat={boatData} />
+                                <ColorDisplay singleBoat={boatData}/>
+                                <SailingDisplay singleBoat={boatData}/>
+                            </BoatProperties>
+                        </WhiteArea>
+                    </motion.div>
+                </>
+            }
+        </div>
     </>
 }

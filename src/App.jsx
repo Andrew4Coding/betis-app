@@ -1,22 +1,22 @@
 import './index.css'
+
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, BrowserRouter, useNavigate, HashRouter} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, BrowserRouter} from "react-router-dom";
 
-import Landing from './components/Landing.jsx';
-import CreateHero from './components/CreateAndEdit/create/createHero';
-import LoadingHero from './components/Loading';
-import EditHero from './components/CreateAndEdit/edit/editHero';
-import BoatDetail from './components/CreateAndEdit/detail/detailHero';
-
-import ErrorPage from './components/ErrorPages';
-import { AnimatePresence } from 'framer-motion';
-import { getFetch } from './FetchLogic.js';
+import Landing from './components/LandingPage.jsx';
+import CreateHero from './components/CreateAndEdit/create/CreateHero.jsx';
+import EditHero from './components/CreateAndEdit/edit/EditHero.jsx';
+import BoatDetail from './components/CreateAndEdit/detail/DetailHero.jsx';
+import ErrorPage from './components/ErrorPage.jsx';
 import AskTokenHero from './components/AskTokenHero.jsx';
 
+import { getFetch } from './FetchLogic.js';
+
 export function Redirect(navigate){
-    if (localStorage.getItem('saved_token') == null){
-        navigate('/newToken')
-    }
+  // If there isnt any token entered before
+  if (localStorage.getItem('saved_token') == null){
+      navigate('/newToken')
+  }
 }
 
 function App() {
@@ -32,10 +32,10 @@ function App() {
   
 
   useEffect(() => {
+    // React every popup opened
     if (localStorage.getItem('saved_token')){
       getFetch(setBoatData, setTempSearch, setIsLoading, setErrorMessage, localStorage.getItem('saved_token'))
     }
-    // React every popup opened
   }, [isOpenPopup])
 
   return (
@@ -48,7 +48,6 @@ function App() {
       >
           <Routes>
             <Route path='/' element={<Landing boatData={boatData} setBoatData={setBoatData} search={tempSearch} setSearch={setTempSearch} isLoading={isLoading}/>}/>
-            
             <Route path='/newToken' element={
               <AskTokenHero setBoatData={setBoatData} setTempSearch={setTempSearch} setIsLoading={setIsLoading} setErrorMessage={setErrorMessage} bearerToken={bearerToken} setBearerToken={setBearerToken}/>
             }/>

@@ -1,4 +1,5 @@
 import { BoatColor } from "../UsedConst"
+
 import MainBoat from "../assets/mainboat"
 import SeaPlane from "../seaPlane"
 

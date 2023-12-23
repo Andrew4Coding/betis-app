@@ -1,5 +1,11 @@
-import ColorPick from "../colorPick";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { Redirect } from "../../../App";
+import { useNavigate } from "react-router";
 
+import ColorPick from "../ColorOption";
+
+import Navbar from "../../Navbar";
 import WhiteArea from "../WhiteArea/WhiteArea"
 import BoatProperties from "../WhiteArea/BoatProperties"
 import CapacityButton from "../WhiteArea/CapacityButton"
@@ -8,15 +14,9 @@ import SailingButton from "../WhiteArea/SailingButton"
 import SaveButton from "../WhiteArea/SaveButton"
 
 import BoatAndPlane from "../../BoatAndPlane";
-import PopUp from "../../popUp";
+import PopUp from "../../PopUp";
 
 import { GetColorName } from "../../../UsedConst";
-
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import Navbar from "../../navbar";
-import { Redirect } from "../../../App";
-import { useNavigate } from "react-router";
 
 export default function CreateHero({isOpenPopup, setIsOpenPopup}){
     const [openColorPick, setOpenColorPick] = useState(false)
