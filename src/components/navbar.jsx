@@ -19,7 +19,7 @@ export function CreateButton(){
         <button className="bg-white py-3 flex gap-3 rounded-full font-bold min-h-[3rem]
         duration-100 hover:scale-110
         px-6 sm:px-10"
-        onClick={() => navigate('/create')}>+ <p className="hidden sm:flex">Create</p></button>
+        onClick={() => navigate('/create')}>+ <p className="hidden sm:flex">Buy</p></button>
     </div>
 }
 

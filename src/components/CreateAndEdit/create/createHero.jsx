@@ -41,7 +41,7 @@ export default function CreateHero({isOpenPopup, setIsOpenPopup}){
         <Navbar />
         <AnimatePresence>
             {isOpenPopup && 
-            <PopUp isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} popupMessage={"Boat Added Successfully!"}/>}
+            <PopUp isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} popupMessage={"Boat Bought Successfully!"}/>}
         </AnimatePresence>
         <motion.div 
         initial={{opacity: 0, y: 200}}

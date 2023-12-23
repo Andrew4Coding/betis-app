@@ -44,7 +44,7 @@ function App() {
         errorMessage && <ErrorPage errorMessage={errorMessage}/>
       }
       <BrowserRouter
-      basename='/betis-app'
+      basename='/betis-app/'
       >
           <Routes>
             <Route path='/' element={<Landing boatData={boatData} setBoatData={setBoatData} search={tempSearch} setSearch={setTempSearch} isLoading={isLoading}/>}/>
