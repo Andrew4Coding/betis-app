@@ -36,8 +36,7 @@ export default function DeveloperHero(){
                 }
 
             </AnimatePresence>
-            <button className={`w-16 h-16 text-2xl rounded-full ${isOpenDeveloperPopUp ? 'bg-mainSeaShade text-white' : 'bg-white'} duration-100 hover:scale-110 hover:bg-mainSeaShade
-            hover:text-white`}             
+            <button className={`w-16 h-16 text-2xl rounded-full ${isOpenDeveloperPopUp ? 'bg-mainSeaShade text-white' : 'bg-white text-black'} duration-100 hover:scale-110 sm:hover:bg-mainSeaShade sm:hover:text-white`}             
             onMouseOver={() => {
                 setIsOpenDeveloperPopup(true)
             }}
