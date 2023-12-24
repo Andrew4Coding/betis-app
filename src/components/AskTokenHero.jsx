@@ -49,14 +49,15 @@ export default function AskTokenHero({setBearerToken, setBoatData, setTempSearch
                 </svg>
 
                 <h2 className="font-thin text-white text-xl">Enter Your Boat Token</h2>
-                <p className="text-white text-sm">Dont have any token? Click <a href="https://soal-oprec-betis-2024.vercel.app/register" target="_blank" className="underline">here </a>
-                or Copy <button className="underline" onClick={
+
+                <p className="text-white text-xs text-center sm:text-sm">Dont have any token? Click <a href="https://soal-oprec-betis-2024.vercel.app/register" target="_blank" className="underline">here </a>
+                or Copy <button className="underline duration-100 hover:scale-110 hover:ml-1" onClick={
                     () => {
                         navigator.clipboard.writeText("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiMzdmZTM3OC01N2JjLTQ1N2MtYTM2OS0zN2E1NmViYTFmNjkiLCJpZCI6ImIzN2ZlMzc4LTU3YmMtNDU3Yy1hMzY5LTM3YTU2ZWJhMWY2OSIsInVzZXJuYW1lIjoiYW5kcmV3LmRldml0byIsImlhdCI6MTcwMTk2MDUyMywiZXhwIjoxNzA0NTUyNTIzfQ.mBB_8hb7yOGPUbZlnL9o_5K9x5p0xf5mbQki-jR0RNA")
                         setTypedToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiMzdmZTM3OC01N2JjLTQ1N2MtYTM2OS0zN2E1NmViYTFmNjkiLCJpZCI6ImIzN2ZlMzc4LTU3YmMtNDU3Yy1hMzY5LTM3YTU2ZWJhMWY2OSIsInVzZXJuYW1lIjoiYW5kcmV3LmRldml0byIsImlhdCI6MTcwMTk2MDUyMywiZXhwIjoxNzA0NTUyNTIzfQ.mBB_8hb7yOGPUbZlnL9o_5K9x5p0xf5mbQki-jR0RNA')
                     }
                 }>Test Token</button></p>
-                <input type="text" placeholder="" className="px-8 py-2 rounded-lg outline-none max-w-[80vw]"
+                <input type="text" placeholder="" className="px-8 py-2 rounded-lg outline-none max-w-[70vw]"
                 value={typedToken}
                 onChange={(event) => setTypedToken(event.target.value)}
                 onKeyDown={(event) => {
@@ -67,7 +68,7 @@ export default function AskTokenHero({setBearerToken, setBoatData, setTempSearch
                 }}/>
                 {
                     // If typed token is empty, then this message shall popup
-                    !typedToken && <p className="text-white font-thin text-sm">* Bearer token must not be empty!</p>
+                    !typedToken && <p className="text-white font-thin text-xs sm:text-sm">* Bearer token must not be empty!</p>
                 }
                 <button className={`${typedToken ? 'bg-mainSeaShade cursor-pointer duration-100 hover:scale-110' : 'bg-black cursor-default'} 
                 px-8 py-3 rounded-xl text-white text-sm`}
