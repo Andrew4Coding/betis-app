@@ -3,6 +3,7 @@ import { useNavigate } from "react-router"
 import { motion } from "framer-motion"
 
 import { getFetch } from "../FetchLogic"
+import DeveloperHero from "./DeveloperHero"
 
 export default function AskTokenHero({setBearerToken, setBoatData, setTempSearch, setIsLoading, setErrorMessage}){
     const [typedToken, setTypedToken] = useState('')
@@ -11,14 +12,17 @@ export default function AskTokenHero({setBearerToken, setBoatData, setTempSearch
     const [tempData, setTempData] = useState([''])
 
     function handleClick(){
+        // If enter button is clicked
         getFetch(setTempData, setTempSearch, setIsLoading, setErrorMessage, 'Bearer ' + typedToken)
 
         setBearerToken(typedToken)
 
+        // Save saved token to local Storage
         localStorage.setItem('saved_token', 'Bearer ' + typedToken)
     }
 
     useEffect(() => {
+        // If temp data still no change (default)
         if (tempData[0] != ''){
             setBoatData(tempData)
             navigate('/')
@@ -35,7 +39,8 @@ export default function AskTokenHero({setBearerToken, setBoatData, setTempSearch
         }}
         className="h-[100vh] justify-center flex items-center">
             <div className="m-8 flex flex-col items-center gap-5">
-                <svg className="cursor-pointer duration-100 hover:scale-110" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width='60px' height='60px'version="1.1" x="0px" y="0px" viewBox="0 0 256 256" enableBackground="new 0 0 256 256" xmlSpace="preserve"
+                <svg className="cursor-pointer duration-100 hover:scale-110" 
+                    xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width='60px' height='60px'version="1.1" x="0px" y="0px" viewBox="0 0 256 256" enableBackground="new 0 0 256 256" xmlSpace="preserve"
                 onClick={() => {
                     navigate('/')
                 }}>
@@ -49,21 +54,24 @@ export default function AskTokenHero({setBearerToken, setBoatData, setTempSearch
                 value={typedToken}
                 onChange={(event) => setTypedToken(event.target.value)}
                 onKeyDown={(event) => {
+                    // Check if bind Enter and Typedtoken is not empty
                     if (event.key == 'Enter' && typedToken){
                         handleClick()
                     }
                 }}/>
                 {
+                    // If typed token is empty, then this message shall popup
                     !typedToken && <p className="text-white font-thin text-sm">* Bearer token must not be empty!</p>
                 }
-                <button className={`${typedToken ? 'bg-mainSeaShade cursor-pointer' : 'bg-black cursor-default'} 
-                px-8 py-3 rounded-xl text-white text-sm duration-100 hover:scale-110`}
+                <button className={`${typedToken ? 'bg-mainSeaShade cursor-pointer duration-100 hover:scale-110' : 'bg-black cursor-default'} 
+                px-8 py-3 rounded-xl text-white text-sm`}
                 onClick={() => {
                     if (typedToken){
                         handleClick()
                     }
                 }}>Enter</button>
             </div>
+            <DeveloperHero />
         </motion.div>
     </>
 }

@@ -5,6 +5,7 @@ import BrokenBoat from '../assets/brokenboat'
 export default function ErrorPage({errorMessage}){
     return <>
         <motion.div
+        // Animation setup
         initial={{scale: 0}}
         animate={{scale: 1}}
         exit={{scale: 0, opacity: 0}}
@@ -12,7 +13,9 @@ export default function ErrorPage({errorMessage}){
             type: "spring",
             duration: 0.4
         }}
+
         className="fixed h-full w-full z-10 bg-black bg-opacity-20 text-center flex flex-col items-center justify-center" onClick={(event) => {
+            // If area outside the popup is clicked, then hard reload
             if (event.target == event.currentTarget){
                 window.location.reload(false)
             }
@@ -28,11 +31,16 @@ export default function ErrorPage({errorMessage}){
                     </p>
                     <p className="font-thin text-[12px] my-3">
                         {
+                            // If Error 401, then show client a message that their token is somehow invalid
                             errorMessage == 'Error 401' && '*Try to check if your token is correct'
                         }
                     </p>
                     <button className="bg-mainSeaShade text-white text-[12px] px-8 py-3 rounded-lg duration-100 hover:scale-110"
-                    onClick={() => window.location.reload(false)}>Refresh Page</button>
+                    onClick={() => {
+                        // If refresh button clicked, then hard reload the page
+                        window.location.reload(false)
+                    }
+                    }>Refresh Page</button>
                 </div>
             </div>
         </motion.div>

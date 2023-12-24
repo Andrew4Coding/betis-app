@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import { useNavigate } from "react-router"
 
 import { BoatColor } from "../UsedConst"
-import { Redirect } from "../App"
 
 import MainBoat from "../assets/mainboat"
 import LoadingHero from "./LoadingHero"
@@ -42,17 +41,22 @@ function Card({boat}){
     </>
 }
 
-export default function Landing({boatData, search, setSearch, isLoading}){
+export default function Landing({boatData, tempSearch, setTempSearch, isLoading}){
     const [searchText, setSearchText] = useState('')
     const navigate = useNavigate()
 
     useEffect(() => {
-        Redirect(navigate)
+        // If local storage didnt contain bearer token, then redirect to Asktoken page
+        if (localStorage.getItem('saved_token') == null){
+            navigate('/newToken')
+        }
     }, [])
 
     useEffect(() => {
-        // Sort Mechanism
-        if (search){
+        // Search Sort
+
+        // Check if search is not empty string
+        if (tempSearch){
             const itemToSearch = boatData.filter(function(item) {
                 if (searchText){
                     return item.name.toLowerCase().includes(searchText.toLowerCase())
@@ -61,7 +65,7 @@ export default function Landing({boatData, search, setSearch, isLoading}){
                     return item.name
                 }
             })
-            setSearch(itemToSearch)
+            setTempSearch(itemToSearch)
         }
     }, [searchText])
 
@@ -88,7 +92,7 @@ export default function Landing({boatData, search, setSearch, isLoading}){
                 <div className="m-8 grid grid-cols-mobileGrid gap-5
                 sm:gap-10 sm:grid-cols-myGrid">
                     {
-                        search.map(((boat) => {
+                        tempSearch.map(((boat) => {
                             return <Card boat={boat} key={boat.id}/>  
                         }))
                     }

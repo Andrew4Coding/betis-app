@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Redirect } from "../../../App";
 import { useNavigate } from "react-router";
 
 import ColorPick from "../ColorOption";
@@ -34,7 +33,9 @@ export default function CreateHero({isOpenPopup, setIsOpenPopup}){
     const navigate = useNavigate()
 
     useEffect(() => {
-        Redirect(navigate)
+        if (localStorage.getItem('saved_token') == null){
+            navigate('/newToken')
+        }
     })
     
     return <>
@@ -43,13 +44,16 @@ export default function CreateHero({isOpenPopup, setIsOpenPopup}){
             {isOpenPopup && 
             <PopUp isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} popupMessage={"Boat Bought Successfully!"}/>}
         </AnimatePresence>
+        
         <motion.div 
+        // Animation setup
         initial={{opacity: 0, y: 200}}
         animate={{opacity: 1, y: 0}}
         transition={{
             type: "spring",
             duration: 0.5
         }}
+
         className="flex m-8 flex-col">
             <div className="flex flex-wrap gap-10 items-center justify-center">
                 <BoatAndPlane prefferedColor={GetColorName(selectedColor)}/>

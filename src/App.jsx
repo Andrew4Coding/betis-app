@@ -1,7 +1,7 @@
 import './index.css'
 
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, BrowserRouter} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Landing from './components/LandingPage.jsx';
 import CreateHero from './components/CreateAndEdit/create/CreateHero.jsx';
@@ -47,7 +47,7 @@ function App() {
       basename='/betis-app/'
       >
           <Routes>
-            <Route path='/' element={<Landing boatData={boatData} setBoatData={setBoatData} search={tempSearch} setSearch={setTempSearch} isLoading={isLoading}/>}/>
+            <Route path='/' element={<Landing boatData={boatData} tempSearch={tempSearch} setTempSearch={setTempSearch} isLoading={isLoading}/>}/>
             <Route path='/newToken' element={
               <AskTokenHero setBoatData={setBoatData} setTempSearch={setTempSearch} setIsLoading={setIsLoading} setErrorMessage={setErrorMessage} bearerToken={bearerToken} setBearerToken={setBearerToken}/>
             }/>

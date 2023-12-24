@@ -7,13 +7,17 @@ export default function CapacityButton({boatCapacity, setBoatCapacity}){
             </div>
             <div className="flex flex-col">
                 <button className="hover:scale-110"
-                onClick={() => setBoatCapacity(boatCapacity + 1)}
+                onClick={() => 
+                    // Increment every click
+                    setBoatCapacity(boatCapacity + 1)}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-chevron-up"><polyline points="18 15 12 9 6 15"/></svg>
                 </button>
                 <button className="hover:scale-110"
                 onClick={() => {
-                    if (boatCapacity > 0){
+                    // Check if boat capacity is more than 1
+                    if (boatCapacity > 1){
+                        // Decrement every click
                         setBoatCapacity(boatCapacity - 1)}
                     }
                 }>

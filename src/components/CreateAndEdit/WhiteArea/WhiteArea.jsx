@@ -14,6 +14,8 @@ export default function WhiteArea({
         <p className="text-[15px] text-[#6D6D6D]">Name</p>
         <input type="text" className="px-4 py-2 w-[100%] outline-none rounded-lg shadow-sm border-[1px] font-bold placeholder:font-normal placeholder:text-[15px]"
         placeholder="Enter your boat name" 
+
+        // If EditValue is an empty string, then client is in detail page. 
         value={EditValue == '' ? boatName : EditValue}
         onChange={(event) => {
             if (event.target.value === ''){
@@ -36,12 +38,15 @@ export default function WhiteArea({
         placeholder="Enter your boat description"
         value={boatDescription}
         onChange={(event) => {
+            // If the description input is empty, then it's invalid
             if (event.target.value === ''){
                 setIsDescriptionValid(false)
             }
             else{
                 setIsDescriptionValid(true)
             }
+
+            // Change the state of Boat Description every time the input changed
             setBoatDescription(event.target.value)
         }}
         />

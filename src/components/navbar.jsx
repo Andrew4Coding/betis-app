@@ -13,16 +13,24 @@ function Logo(){
     </div>
 }
 
+// Create Boat Child Button
 export function CreateButton(){
     const navigate = useNavigate()
     return <div>
         <button className="bg-white py-3 flex gap-3 rounded-full font-bold min-h-[3rem]
         duration-100 hover:scale-110
         px-6 sm:px-10"
-        onClick={() => navigate('/create')}>+ <p className="hidden sm:flex">Buy</p></button>
+        onClick={() => navigate('/create')}>
+            + 
+            <p className="hidden sm:flex">
+                Buy
+            </p>
+        </button>
     </div>
 }
 
+
+// New Token Child Button
 export function LoginNewToken(){
     const navigate = useNavigate()
     return <div>

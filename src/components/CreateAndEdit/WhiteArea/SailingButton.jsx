@@ -3,7 +3,10 @@ export default function SailingButton({isSailing, setIsSailing}){
         <li className="flex items-center gap-3">
             <p className="">Sailing</p>
             <button className="bg-mainBlack px-4 py-2 text-white rounded-lg w-[4rem]"
-            onClick={() => setIsSailing(!isSailing)}>
+            onClick={() => {
+                // If clicked, reverse the value of isSailing
+                setIsSailing(!isSailing)
+            }}>
                 {isSailing ? 'Yes' : 'No'}
             </button>
         </li>

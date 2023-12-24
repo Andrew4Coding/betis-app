@@ -3,16 +3,10 @@ import { useNavigate } from 'react-router'
 
 export default function PopUp({setIsOpenPopup, popupMessage}){
     const navigate = useNavigate()
-
-    function handleClick(event){
-        if (event.target === event.currentTarget){
-            setIsOpenPopup(false)
-            navigate('/')
-        }
-    }
-
+    
     return <>
         <motion.div 
+        // Animation setup
         initial={{scale: 0, y: -200}}
         animate={{scale: 1, y: 0}}
         exit={{scale: 0, opacity: 0}}
@@ -20,13 +14,22 @@ export default function PopUp({setIsOpenPopup, popupMessage}){
             type: "spring",
             duration: 0.4
         }}
+
         className="fixed z-10 flex justify-center top-[2rem] w-full h-full"
-        onClick={handleClick}>
+        onClick={(event) => {
+            if (event.target === event.currentTarget){
+                setIsOpenPopup(false)
+                navigate('/')
+            }
+        }}>
             <div className="bg-white min-w-[10rem] max-w-full h-[10rem] p-8 sm:min-w-[20rem] sm:h-[15rem] flex flex-col
             items-center justify-center gap-5 rounded-3xl shadow-xl">
-                <h2 className="font-bold text-sm sm:text-lg">{popupMessage}</h2>
+                <h2 className="font-bold text-sm sm:text-lg">
+                    {popupMessage}
+                </h2>
                 <button className=""
                 onClick={() => {
+                    // If pop up is dismissed, then redirect to home page and close the popup
                     setIsOpenPopup(false)
                     navigate('/')
                 }}>

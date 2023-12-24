@@ -23,6 +23,9 @@ export default {
         'mobileGrid': 'repeat(auto-fill, minmax(100px, 1fr));',
         'editGrid': 'repeat(auto-fill, minmax(500px, 1fr));'
       },
+      backgroundImage: {
+        'myProfile' : "url('./src/assets/profile.jpg')"
+      }
     },
   },
   plugins: [],

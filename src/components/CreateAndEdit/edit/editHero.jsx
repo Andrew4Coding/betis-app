@@ -18,10 +18,12 @@ import { BoatColor, GetColorName } from "../../../UsedConst";
 import { getDetailFetch, deleteFetch, patchFetch} from "../../../FetchLogic";
 
 export default function EditHero({isOpenPopup, setIsOpenPopup}){
+    // Get the boat id from url parameter
     const params = useParams().boatID
 
     const [openColorPick, setOpenColorPick] = useState(false)
     
+    // Input checker State
     const [isNameValid, setIsNameValid] = useState(false)
     const [isDescriptionValid, setIsDescriptionValid] = useState(false)
 
