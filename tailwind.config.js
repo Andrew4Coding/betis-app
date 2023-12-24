@@ -13,18 +13,12 @@ export default {
         'mainSeaShadeDarken': '#0E4F95',
       },
       fontFamily: {
-        Gabarito: ['Gabarito'],
         Poppins: ['Poppins'],
-        SpaceGrotesk: ['Space Grotesk'],
-        BebasNeue: ['Bebas Neue']
       },
       gridTemplateColumns: {
         'myGrid': 'repeat(auto-fill, minmax(200px, 1fr));',
         'mobileGrid': 'repeat(auto-fill, minmax(100px, 1fr));',
         'editGrid': 'repeat(auto-fill, minmax(500px, 1fr));'
-      },
-      backgroundImage: {
-        'myProfile' : "url('./src/assets/profile.jpg')"
       }
     },
   },
