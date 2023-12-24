@@ -2,8 +2,7 @@
 ### Nyonya Beti's Boat Collection
 This repository contains the source file of my Fasilkom's BETIS 2024 Website Development Task. 
 
-You can check the airing website here, or just check at the GitHub Actions Page
-https://andrew4coding.github.io/betis-app/
+You can check the airing website: https://andrew4coding.github.io/betis-app/ or just check at the GitHub Actions Page.
 
 ## For this task, I used some frameworks and libraries, for instance:
 - React JS (Including React Router)
